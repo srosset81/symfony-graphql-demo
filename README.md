@@ -1,1 +1,1 @@
-Simple Symfony demo using Youshido GraphQL bundle.
+Simple Symfony demo using Youshido GraphQL bundle (https://github.com/Youshido/GraphQLBundle)
