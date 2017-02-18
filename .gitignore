@@ -1,0 +1,8 @@
+.idea
+vendor
+var/cache
+app/config/parameters.yml
+var/logs
+var/sessions
+web/bundle
+composer.phar

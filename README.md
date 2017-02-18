@@ -1,0 +1,1 @@
+Simple Symfony demo using Youshido GraphQL bundle.
