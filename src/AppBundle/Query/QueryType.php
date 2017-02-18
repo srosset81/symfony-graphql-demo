@@ -1,6 +1,9 @@
-<?
+<?php
 namespace AppBundle\Query;
 
+use AppBundle\Query\HelloWorld\HelloWorldQuery;
+use AppBundle\Query\Post\PostField;
+use AppBundle\Query\Post\PostsField;
 use Youshido\GraphQL\Config\Object\ObjectTypeConfig;
 use Youshido\GraphQL\Type\Object\AbstractObjectType;
 
@@ -14,9 +17,9 @@ class QueryType extends AbstractObjectType
     public function build($config)
     {
         $config->addFields([
-            new \AppBundle\Query\HelloWorld\HelloWorldQuery(),
-            new \AppBundle\Query\Post\ListPostsQuery(),
-            new \AppBundle\Query\Post\GetPostQuery(),
+            new HelloWorldQuery(),
+            new PostsField(),
+            new PostField(),
         ]);
     }
 }

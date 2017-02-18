@@ -9,6 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Post
  *
  * @ORM\Entity(repositoryClass="AppBundle\Entity\Post\PostRepository")
+ * @ORM\HasLifecycleCallbacks
  */
 class Post
 {
@@ -18,12 +19,12 @@ class Post
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     protected $id;
-    
+
     /**
      * @ORM\Column(type="string", length=255)
      */
     private $title;
-    
+
     /**
      * @ORM\Column(type="text")
      */
@@ -34,9 +35,30 @@ class Post
      */
     private $comments;
 
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $createdAt;
+
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $updatedAt;
+
+
     public function __construct()
     {
         $this->comments = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->createdAt = new \DateTime();
+    }
+
+    /**
+     * @ORM\PreUpdate
+     * @ORM\PrePersist
+     */
+    public function initiateUpdatedAt()
+    {
+        $this->updatedAt = new \DateTime();
     }
 
     /**
@@ -86,7 +108,7 @@ class Post
     {
         $this->content = $content;
     }
-    
+
     public function getComments()
     {
         return $this->comments;
@@ -102,4 +124,42 @@ class Post
     {
         $this->comments->removeElement($comment);
     }
+
+    /**
+     * @return mixed
+     */
+    public function getCreatedAt()
+    {
+        return $this->createdAt;
+    }
+
+    /**
+     * @param mixed $createdAt
+     * @return Post
+     */
+    public function setCreatedAt($createdAt)
+    {
+        $this->createdAt = $createdAt;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getUpdatedAt()
+    {
+        return $this->updatedAt;
+    }
+
+    /**
+     * @param mixed $updatedAt
+     * @return Post
+     */
+    public function setUpdatedAt($updatedAt)
+    {
+        $this->updatedAt = $updatedAt;
+        return $this;
+    }
+
+
 }
