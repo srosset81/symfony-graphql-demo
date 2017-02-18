@@ -14,10 +14,6 @@ use Youshido\GraphQLBundle\Field\AbstractContainerAwareField;
 
 class AddCommentMutation extends AbstractContainerAwareField
 {
-    public function getName()
-    {
-        return "addComment";
-    }
 
     public function build(FieldConfig $config)
     {

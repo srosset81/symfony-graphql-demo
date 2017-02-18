@@ -19,6 +19,6 @@ class CommentType extends AbstractObjectType
             ->addField('content', new StringType())
         ;
         
-        $config->set("description", "Commentaire");
+        $config->setDescription("Commentaire");
     }
 }

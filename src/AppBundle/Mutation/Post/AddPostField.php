@@ -2,6 +2,7 @@
 
 namespace AppBundle\Mutation\Post;
 
+use AppBundle\Entity\Post\InputPostType;
 use AppBundle\Entity\Post\Post;
 use AppBundle\Entity\Post\PostType;
 use Doctrine\ORM\EntityManager;
@@ -11,19 +12,19 @@ use Youshido\GraphQL\Type\NonNullType;
 use Youshido\GraphQL\Type\Scalar\StringType;
 use Youshido\GraphQLBundle\Field\AbstractContainerAwareField;
 
-class AddPostMutation extends AbstractContainerAwareField
+class AddPostField extends AbstractContainerAwareField
 {
-    public function getName()
-    {
-        return "addPost";
-    }
 
     public function build(FieldConfig $config)
     {
-        $config->addArgument("title", new NonNullType(new StringType()));
-        $config->addArgument("content", new NonNullType(new StringType()));
+        $config->addArguments([
+            "post" => [
+                'type' => new NonNullType(new InputPostType()),
+                'description' => 'Full post body',
+            ]
+        ]);
 
-        $config->set("description", "Ajouter un nouveau post");
+        $config->setDescription("Ajouter un nouveau post");
     }
 
     public function resolve($value, array $args, ResolveInfo $info)
@@ -32,9 +33,9 @@ class AddPostMutation extends AbstractContainerAwareField
         $em = $this->container->get('doctrine')->getManager();
 
         $post = new Post();
-        $post->setTitle($args['title']);
-        $post->setContent($args['content']);
-        
+        $post->setTitle($args['post']['title']);
+        $post->setContent($args['post']['content']);
+
         $em->persist($post);
         $em->flush();
 
@@ -45,4 +46,5 @@ class AddPostMutation extends AbstractContainerAwareField
     {
         return new PostType();
     }
+
 }
