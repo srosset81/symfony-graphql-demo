@@ -12,7 +12,6 @@ use Youshido\GraphQLBundle\Field\AbstractContainerAwareField;
 
 class PostField extends AbstractContainerAwareField
 {
-
     public function build(FieldConfig $config)
     {
         $config->addArgument("id", new NonNullType(new IdType()));

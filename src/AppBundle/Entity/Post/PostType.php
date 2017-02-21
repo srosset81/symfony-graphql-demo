@@ -17,15 +17,27 @@ class PostType extends AbstractObjectType
     public function build($config)
     {
         $config->addFields([
-            'id'        => new IdType(),
-            'title'     => new StringType(),
-            'content'   => new StringType(),
+            'id' => new IdType(),
+            'title' => [
+                'type' => new StringType(),
+                'description' => "Titre"
+            ],
+            'content' => [
+                'type' => new StringType(),
+                'description' => "Contenu"
+            ],
             'createdAt' => [
                 'type' => new DateTimeType("Y-m-d"),
-                'description' => 'Date when post was created'
+                'description' => "Date d'ajout"
             ],
-            'updatedAt' => new DateTimeType("d M, Y H:ia"),
-            'comments'  => new ListType(new CommentType()),
+            'updatedAt' => [
+                'type' => new DateTimeType("Y-m-d"),
+                'description' => "Dernière mise à jour"
+            ],
+            'comments' => [
+                'type' => new ListType(new CommentType()),
+                'description' => "Commentaires liés"
+            ],
         ]);
 
         $config->setDescription("Blog post");

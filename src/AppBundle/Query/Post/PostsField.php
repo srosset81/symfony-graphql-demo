@@ -20,7 +20,7 @@ class PostsField extends AbstractContainerAwareField
 
     public function resolve($parentEntity, array $args, ResolveInfo $info)
     {
-        $em         = $this->container->get('doctrine')->getManager();
+        $em = $this->container->get('doctrine')->getManager();
         $repository = $em->getRepository(Post::class);
         return $repository->findAll();
     }
